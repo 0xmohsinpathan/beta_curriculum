@@ -316,6 +316,26 @@ C:\> rmdir example
 
 ## Reading Files
 
+## Tab Completion
+
+To save time, you can generally use the <kbd>Tab</kbd> button to autocomplete a command or filename.
+
+### Your Turn
+
+Using the command line, create a new folder called `tab_to_folder`.
+
+```sh
+$ mkdir tab_to_folder
+```
+
+Navigate to the folder using autocompletion. Start typing `tab` then use the <kbd>Tab</kbd> key to autocomplete the folder name.
+
+```sh
+$ cd tab_to_folder
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
 You can read file contents with the following commands.
 
 * **macOS & GNU/Linux**: `cat`
@@ -345,24 +365,6 @@ On **Windows** run:
 
 ```sh
 C:\> type read_example.txt
-```
-
-## Tab Completion
-
-To save time, you can generally use the <kbd>Tab</kbd> button to autocomplete a command or filename.
-
-### Your Turn
-
-Using the command line, create a new folder called `tab_to_folder`.
-
-```sh
-$ mkdir tab_to_folder
-```
-
-Navigate to the folder using autocompletion. Start typing `tab` then use the <kbd>Tab</kbd> key to autocomplete the folder name.
-
-```sh
-$ cd tab_to_folder
 ```
 
 ## With Great Power
@@ -412,3 +414,7 @@ You can now handle everyday command-line tasks! Expect to learn more about the c
 | Previous | Next                         |
 | -------- | ---------------------------: |
 | -        | [Git](../reading/git.livemd) |
+
+```elixir
+
+```
