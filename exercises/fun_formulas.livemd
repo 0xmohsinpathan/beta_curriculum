@@ -55,6 +55,7 @@ Enter your solution below.
 
 ```elixir
 num1 = 12
+
 num2 = 42
 
 num1 / num2 * 100
@@ -84,7 +85,9 @@ Enter your solution below.
 
 ```elixir
 mass = 10
+
 acceleration = 50
+
 force = mass * acceleration
 ```
 
@@ -110,6 +113,7 @@ Enter your solution below.
 
 ```elixir
 meal = 20
+
 tip = 15 / 100
 
 meal * tip
@@ -137,7 +141,9 @@ Enter your solution below.
 
 ```elixir
 a = 4
+
 b = 10
+
 c = a * a + b * b
 ```
 
@@ -159,6 +165,7 @@ Enter your solution below.
 
 ```elixir
 csquare = 116
+
 c = csquare / 2
 ```
 
