@@ -152,7 +152,7 @@ end
 ```
 
 ```elixir
-Enum.reduce(1..3, fn el, acc -> acc + el end)
+Enum.reduce(1..10, fn el, acc -> acc + el end)
 ```
 
 ## Scenario
@@ -640,8 +640,14 @@ flowchart LR
   Collection --> Enum.count --> Integer
 ```
 
+<!-- livebook:{"reevaluate_automatically":true} -->
+
 ```elixir
 Enum.count([1, 2, 3])
+```
+
+```elixir
+
 ```
 
 The type of elements does not matter. Collections with multiple elements still only count as a single individual element.

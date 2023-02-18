@@ -85,10 +85,10 @@ in Elixir are unbounded, meaning they have no maximum size.
 Contrast that with a language like JavaScript which has a maximum safe integer size of `9007199254740991`.
 Elixir makes that look tiny!
 
-<!-- livebook:{"attrs":{"code":"biggest_integer = 1","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":"Biggest Integer Visual"},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"code":"biggest_integer = 9007199254740991","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":true},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
 
 ```elixir
-biggest_integer = 1
+biggest_integer = 9_007_199_254_740_991
 Kino.Markdown.new(~s(
 integer: #{biggest_integer}\n
 digits: #{biggest_integer |> Integer.digits() |> Enum.count()}
@@ -154,10 +154,10 @@ For example, you might want to represent a progress bar as a percentage.
 In the Elixir cell below, try changing the float `percentage` to any float between `0.0` and `100.0`
 and see how the loading bar changes! Replace `50.0` with your answer and reevaluate the cell.
 
-<!-- livebook:{"attrs":{"code":"percentage = 50.0","source":"Kino.Markdown.new(~s(\n  <div style=\\\"height: 20px; width: 100%; background-color: grey\\\">\n  <div style=\\\"height: 20px; width: #{percentage}%; background-color: green; color: white;\\\">#{percentage}%</div>\n  </div>\n))","title":"Loading Bar Visual"},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"code":"percentage = 1.22","source":"Kino.Markdown.new(~s(\n  <div style=\\\"height: 20px; width: 100%; background-color: grey\\\">\n  <div style=\\\"height: 20px; width: #{percentage}%; background-color: green; color: white;\\\">#{percentage}%</div>\n  </div>\n))","title":true},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
 
 ```elixir
-percentage = 50.0
+percentage = 1.22
 Kino.Markdown.new(~s(
   <div style=\"height: 20px; width: 100%; background-color: grey\">
   <div style=\"height: 20px; width: #{percentage}%; background-color: green; color: white;\">#{percentage}%</div>
@@ -176,7 +176,7 @@ For example, what do you think `1.2 + 1.4` returns? Probably `2.6` right? Nope!
 You'll see the actual answer is `2.5999999999999996` in the Elixir cell below.
 
 ```elixir
-1.2 + 1.4
+1 / 10
 ```
 
 Why do computers have these errors? Well that requires a fairly in-depth understanding of
@@ -203,7 +203,7 @@ provide utilities for working with money.
 In the Elixir cell below, enter some floating-point addition that returns an unexpected result.
 
 ```elixir
-
+95.2 + 5.5
 ```
 
 ## Arithmetic Operators
@@ -220,7 +220,7 @@ floats may result in floating-point errors.
 ## Addition
 
 ```elixir
-7 + 5
+
 ```
 
 You can create entire equations by writing operators one after the other. So long as there is a
@@ -269,7 +269,7 @@ to write code like this, but it's useful to know you can.
 In the Elixir cell below, add two massive numbers together that you couldn't do in your head.
 
 ```elixir
-
+1_203_648 * 25 + 462_453
 ```
 
 ## Subtraction
@@ -307,7 +307,7 @@ Subtracting a negative is the same as adding a positive.
 In the Elixir cell below, subtract two massive numbers together.
 
 ```elixir
-
+100_000 - 999_999
 ```
 
 ## Multiplication
@@ -336,7 +336,7 @@ You can multiply integers and floats both positive and negative in combination, 
 In the Elixir cell below, multiply two massive numbers together.
 
 ```elixir
-
+1200 * 12895
 ```
 
 ## Division
@@ -346,7 +346,7 @@ There is the `/` operator, which will always return a `float`, and the `div` ope
 which will always return an `integer` (rounded down).
 
 ```elixir
-10 / 5
+10 / 5 div
 ```
 
 `div` is a function. You will learn more about functions in the future.
@@ -370,6 +370,7 @@ For example, notice that `10 / 3` is `3.3333333333333335`.
 
 ```elixir
 10 / 3
+div(10, 3)
 ```
 
 ### Your Turn
@@ -378,13 +379,13 @@ In the Elixir cell below, divide `223` by `71` using `/` to get a nice slice of 
 should be close to `3.14`.
 
 ```elixir
-
+223 / 71
 ```
 
 Divide `100` by `3` using `div`. Your answer should be `33`.
 
 ```elixir
-
+div(100, 3)
 ```
 
 ## Exponents
@@ -420,7 +421,7 @@ In the Elixir cell below, Use the `**` operator to determine `10` to the power o
 </details>
 
 ```elixir
-
+10 ** 214
 ```
 
 ## BEDMAS
@@ -496,7 +497,7 @@ Use brackets `()` to alter the return value of the expression below to be `200` 
 </details>
 
 ```elixir
-10 + 10 * 10
+10 * 10 + 10 / 5
 ```
 
 ## Remainder
@@ -589,7 +590,7 @@ rem(10, 3)
 Enter your solution below.
 
 ```elixir
-
+rem(10, 3)
 ```
 
 ## Further Reading

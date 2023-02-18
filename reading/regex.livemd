@@ -170,7 +170,7 @@ three or more matches. `{3,4}` is between three and four matches.
 For example, we could use this to create an alternative regular expression for phone numbers.
 
 ```elixir
-Regex.scan(~r/\d{3}-\d{3}-\d{4}/, "111-111-1111")
+Regex.scan(~r/\d{3}-\d{3}-\d{3}/, "111-111-1111")
 ```
 
 Or match on all digits between 3 and 4 characters.

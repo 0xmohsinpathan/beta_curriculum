@@ -29,6 +29,12 @@ NumberFinder.largest([2, 3, 1])
 ```
 
 ```elixir
+# input -> list of number 
+# how to do -> use min/mix function, if or else, 
+# output -> min/mix number
+```
+
+```elixir
 defmodule NumberFinder do
   @doc """
   Find the smallest number in a list
@@ -43,6 +49,9 @@ defmodule NumberFinder do
     -3
   """
   def smallest(number_list) do
+    Enum.reduce(number_list, fn element, acc ->
+      min(element, acc)
+    end)
   end
 
   @doc """
@@ -58,6 +67,9 @@ defmodule NumberFinder do
     20
   """
   def largest(number_list) do
+    Enum.reduce(number_list, fn element, acc ->
+      max(element, acc)
+    end)
   end
 end
 ```

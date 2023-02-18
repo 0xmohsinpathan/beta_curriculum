@@ -120,7 +120,7 @@ Default keys must come last in the list of struct keys otherwise Elixir will rai
 
 ```elixir
 defmodule BadDefaults do
-  defstruct [key1: "default", :key2]
+  defstruct [key: ]
 end
 ```
 
@@ -170,7 +170,12 @@ end
 Enter your solution below.
 
 ```elixir
+defmodule Coordinate do
+  @enforce_keys [:x, :y]
+  defstruct @enforce_keys
+end
 
+%Coordinate{}
 ```
 
 ## Module Functions

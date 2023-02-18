@@ -14,6 +14,10 @@ Mix.install([
 [Return Home](../start.livemd)<span style="padding: 0 30px"></span>
 [Report An Issue](https://github.com/DockYard-Academy/beta_curriculum/issues/new?assignees=&labels=&template=issue.md&title=)
 
+```elixir
+
+```
+
 ## Overview
 
 You're going to create a game of [Tic-tac-toe](https://en.wikipedia.org/wiki/Tic-tac-toe).
@@ -42,7 +46,16 @@ Usually we say grids have an **x** and a **y** axis. Each location in the grid i
 
 ![](images/tic_tac_toe_coordinates_grid.png)
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+board = [
+  ["X", "O", nil],
+  [nil, "X", "O"],
+  [nil, nil, "X"]
+]
+
+y = Enum.reverse(board)
+row = Enum.at(y, 0)
+```
 
 We'll use an `{x, y}` tuple to represent a coordinate on the board.
 
@@ -121,6 +134,25 @@ end
 </details>
 
 ```elixir
+# input = coordinate ? -> we get column -> we get row 
+# output = value
+
+board = [["A", "B", "C"], ["D", "E", "F"], ["G", "H", "I"]]
+
+row = Enum.at(board, 0)
+
+# column = elem(List.to_tuple(board), 2) 
+# Enum.at( row, 1)
+```
+
+```elixir
+board = [["A", "B", "C"], ["D", "E", "F"], ["G", "H", "I"]]
+
+row = Enum.at(board, 0)
+List.replace_at(row, 0, X)
+```
+
+```elixir
 defmodule TicTacToe do
   @moduledoc """
     Documentation for `TicTacToe`
@@ -133,7 +165,7 @@ defmodule TicTacToe do
 
     We've used a board with letter symbols for sake of example.
 
-    iex> board = [["A", "B", "C"], ["D", "E", "F"], ["G", "H", "I"]]
+    iex> board = [["A", "B", "C"],["D", "E", "F"],["G", "H", "I"]]
     iex> TicTacToe.at(board, {0, 0})
     "G"
     iex> TicTacToe.at(board, {1, 0})
@@ -153,7 +185,10 @@ defmodule TicTacToe do
     iex> TicTacToe.at(board, {2, 2})
     "C"
   """
-  def at(board, coordinate) do
+  def at(board, coordinate = {x, y}) do
+    r_board = Enum.reverse(board)
+    row = Enum.at(r_board, y)
+    Enum.at(row, x)
   end
 
   @doc """
@@ -176,7 +211,12 @@ defmodule TicTacToe do
   iex> TicTacToe.fill([[nil, "X", nil], [nil, "X", "O"], [nil, nil, "X"]], {2, 2}, "O")
   [[nil, "X", "O"], [nil, "X", "O"],[nil, nil, "X"]]
   """
-  def fill(board, coordinate, symbol) do
+  def fill(board, coordinate = {x, y}, symbol) do
+    r_board = Enum.reverse(board)
+    row = Enum.at(r_board, y)
+    filling = List.replace_at(row, x, symbol)
+    r_new = List.replace_at(r_board, y, filling)
+    Enum.reverse(r_new)
   end
 end
 ```

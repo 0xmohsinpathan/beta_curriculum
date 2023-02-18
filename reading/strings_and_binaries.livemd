@@ -82,7 +82,7 @@ end)
 Each byte stores an integer between `1` and `255` in binary. These integers are used to represent characters. For example, the number `65` represents the `"A"` character. This number is called the **codepoint**. We can find the codepoint of any character using the `?` symbol.
 
 ```elixir
-?A
+<<109>>
 ```
 
 We can also see that a string is actually a series of binary bytes representing a codepoint using [IO.inspect/2](https://hexdocs.pm/elixir/IO.html#inspect/2) with the `binaries: :as_binaries` option.
@@ -130,11 +130,11 @@ For example, the code point for the the character `h` is `104` or `01101000` in 
 Using `byte_size/1` and `bit_size/1` We can see that (generally) each character in a string is a single byte or eight bits.
 
 ```elixir
-byte_size("h")
+byte_size("hello")
 ```
 
 ```elixir
-bit_size("h")
+bit_size("hello")
 ```
 
 So a string with five characters would have five bytes or forty bits.

@@ -22,6 +22,8 @@ Represent each book as a `Book` struct with `title` key. Then create a `Book.sea
 
 ```elixir
 defmodule Book do
+  defstruct title: "My Book Title"
+
   @moduledoc """
   Documentation for `Book`.
 
@@ -45,18 +47,18 @@ defmodule Book do
     iex> Book.search([book1, book2, book3], "A")
     [%Book{title: "A"}]
 
-  Include books that partially match the search query.
+  # Include books that partially match the search query.
 
-    iex> Book.search([%Book{title: "ABC"}], "A")
-    [%Book{title: "ABC"}]
+  #   iex> Book.search([%Book{title: "ABC"}], "A")
+  #   [%Book{title: "ABC"}]
 
-    iex> Book.search([%Book{title: "BAC"}], "A")
-    [%Book{title: "BAC"}]
+  #   iex> Book.search([%Book{title: "BAC"}], "A")
+  #   [%Book{title: "BAC"}]
 
-  Search should be case insensitive.
+  # Search should be case insensitive.
 
-    iex> Book.search([%Book{title: "ABC"}], "a")
-    [%Book{title: "ABC"}]
+  #   iex> Book.search([%Book{title: "ABC"}], "a")
+  #   [%Book{title: "ABC"}]
   """
   def search(books, query) do
   end

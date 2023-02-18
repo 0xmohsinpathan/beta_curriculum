@@ -64,6 +64,19 @@ Implement the `RockPaperScissorsLizardSpock` module as documented.
 
 ```elixir
 defmodule RockPaperScissorsLizardSpock do
+  player1 = :rock
+  player2 = :scissors
+
+  case {player1, player2} do
+    {:rock, :scissors} -> "Player 1 Wins!"
+    {:paper, :rock} -> "Player 1 Wins!"
+    {:scissors, :paper} -> "Player 1 Wins!"
+    {:rock, :paper} -> "Player 2 Wins!"
+    {:paper, :scissors} -> "Player 2 Wins!"
+    {:scissors, :rock} -> "Player 2 Wins!"
+    {_same, _same} -> "Draw"
+  end
+
   @moduledoc """
   Rock Paper Scissors Lizard Spock Game
   """
@@ -105,6 +118,68 @@ end
 ```
 
 ## Mark As Completed
+
+```elixir
+# Rock beats Lizard.
+# Lizard beats Spock.
+# Spock beats Scissors.
+# Scissors beats Lizard.
+# Lizard beats Paper.
+# Paper beats Spock.
+# Spock beats Rock.
+
+player1 = Enum.random([:rock, :paper, :scissors, :lizard, :spock])
+player2 = Enum.random([:rock, :paper, :scissors, :lizard, :spock])
+
+case {:rock, :boom} do
+  {same, same} ->
+    "Draw"
+
+  {:rock, :scissors} ->
+    "Player 1 Wins!"
+
+  {:rock, :lizard} ->
+    "Player 1 Wins!"
+
+  {:lizard, :spock} ->
+    "Player 1 Wins!"
+
+  {:paper, :rock} ->
+    "Player 1 Wins!"
+
+  {:paper, :spock} ->
+    "Player 1 Wins!"
+
+  {:scissors, :paper} ->
+    "Player 1 Wins!"
+
+  {:scissors, :lizard} ->
+    "Player 1 Wins!"
+
+  {:spock, :rock} ->
+    "Player 1 Wins!"
+
+  {:spock, :scissors} ->
+    "Player 1 Wins!"
+
+  {:lizard, :paper} ->
+    "Player 1 Wins!"
+
+  _ ->
+    "Player 2 Wins!"
+
+    # {:rock, :paper} -> "Player 2 Wins!"
+    # {:rock, :spock} -> "Player 2 Wins!"
+    # {:paper, :scissors} -> "Player 2 Wins!"
+    # {:paper, :lizard} -> "Player 2 Wins!"
+    # {:scissors, :rock} -> "Player 2 Wins!"
+    # {:scissors, :spock} -> "Player 2 Wins!"
+    # {:spock, :paper} -> "Player 2 Wins!"
+    # {:spock, :lizard} -> "Player 2 Wins!"
+    # {:lizard, :rock} -> "Player 2 Wins!"
+    # {:lizard, :scissors} -> "Player 2 Wins!"
+end
+```
 
 <!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"rock_paper_scissors_lizard_spock_reading\"\n    \"exercises\" -> \"rock_paper_scissors_lizard_spock_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 

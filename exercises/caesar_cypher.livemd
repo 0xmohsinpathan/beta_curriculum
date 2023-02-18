@@ -91,6 +91,25 @@ defmodule CaesarCypher do
     "ifmmp"
   """
   def encode(string) do
+    # Inpute: string of lenght n
+    # "a" => b 
+    #  a? + 1 => 98
+    #  [a? + 1] => [98] |> List.to_string() => b
+    # -----------------------------------------
+    # ["a", "b", "c"]
+    # "b" => c
+    # Regex
+    # Output: updated string of length n 
+    #   string
+    #   |> String.to_charlist()
+    #   |> Enum.map(fn el ->
+    #     cond do
+    #       el >= ?z -> ?a
+    #       el -> el + 1
+    #     end
+    #   end)
+    #   |> List.to_string()
+    encode(string, 1)
   end
 
   @doc """
@@ -114,8 +133,26 @@ defmodule CaesarCypher do
     "ifmmp"
   """
   def encode(string, key) do
+    string
+    |> String.to_charlist()
+    |> IO.inspect()
+    |> Enum.map(fn el ->
+      IO.inspect(el)
+      collector = el + key > ?z
+
+      if collector do
+        ?a + rem(el + key, ?z) - 1
+      else
+        el + key
+      end
+    end)
+    |> List.to_string()
   end
 end
+```
+
+```elixir
+122 >= ?z
 ```
 
 ## Mark As Completed

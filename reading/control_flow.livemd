@@ -121,7 +121,13 @@ end
 Enter your solution below.
 
 ```elixir
+temperature = 20
 
+if temperature < 10 do
+  :cold
+else
+  :hot
+end
 ```
 
 ## Clear Control Flow
@@ -266,7 +272,7 @@ We can provide any number of cases. Cases use pattern matching to decide which r
 Return each value from `1` to `5` by changing the `condition` variable below.
 
 ```elixir
-condition = nil
+condition = :red
 
 case condition do
   :red -> 1

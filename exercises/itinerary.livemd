@@ -58,6 +58,10 @@ defmodule Itinerary do
     
   """
   def has_time?(start, finish, minutes) do
+    ## Difference (in seconds) between the two dates
+    number = DateTime.diff(finish, start, :minute)
+    # number_of_seconds / 60 == minutes do
+    number == minutes
   end
 end
 ```

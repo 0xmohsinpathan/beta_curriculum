@@ -90,6 +90,10 @@ When a keyword list is inside of a function, Elixir removes the square brackets 
 IO.inspect("data", label: "label for my data")
 ```
 
+```elixir
+IO.inspect("song1", label: "label for my data")
+```
+
 For a full list of options for `IO.inspect`, see: [Inspect.Opts](https://hexdocs.pm/elixir/Inspect.Opts.html)
 
 <!-- livebook:{"break_markdown":true} -->
@@ -129,7 +133,7 @@ In the Elixir cell below, you can see how Elixir converts lists of tuples matchi
 into a keyword list.
 
 ```elixir
-[{:key, "value"}, {:key, "value"}]
+[{:key, "value"}]
 ```
 
 If you break the convention in the keyword list, Elixir reverts to displaying
@@ -142,7 +146,11 @@ the keyword list as a list of tuples.
 The keyword list syntax must come at the end of a list, or we'll cause a [SyntaxError](https://hexdocs.pm/elixir/SyntaxError.html).
 
 ```elixir
-[key: "value", ""]
+["", 'j', key: "value"]
+```
+
+```elixir
+[{:hola, "hello"}]
 ```
 
 List order is guaranteed, so the same is true for keyword lists.
@@ -165,7 +173,8 @@ In the Elixir cell below, create a keyword list of your favourite super hero. In
 Enter your solution below.
 
 ```elixir
-
+myFavouriteHero = [name: "spider_man", secret_identity: "mohsin"]
+myFavouriteHero[:name]
 ```
 
 ## Accessing A Key
@@ -184,6 +193,7 @@ Access the `:hello` key in the following keyword list.
 
 ```elixir
 keyword_list = [hello: "world"]
+keyword_list[:hello]
 ```
 
 ## Keyword List Operators
@@ -191,14 +201,14 @@ keyword_list = [hello: "world"]
 We can also use `--` and `++` list operators with keyword lists.
 
 ```elixir
-[one: 1, two: 2] -- [one: 1]
+[one: 1, two: 2] ++ [one: 1]
 ```
 
 If you add a list to a keyword list, you'll notice that the keyword list element will
 evaluate as a tuple again. Remember that keyword lists are simply lists of tuples with an atom and a value.
 
 ```elixir
-[one: 1] ++ [1]
+[one: 1] -- [1]
 ```
 
 ### Your Turn
@@ -206,13 +216,13 @@ evaluate as a tuple again. Remember that keyword lists are simply lists of tuple
 In the Elixir cell below, use `++` to add `[one: 1]` to `[two: 2]` to make `[one: 1, two: 2]`.
 
 ```elixir
-
+[one: 1] ++ [two: 2]
 ```
 
 Remove `[two: 2]` from `[one: 1, two: 2]` to make `[one: 1]`.
 
 ```elixir
-
+[one: 1, two: 2] -- [two: 2]
 ```
 
 ## Pattern Matching
@@ -249,6 +259,7 @@ If we want to pattern match on the keys in the list, we need to use the tuple sy
 
 ```elixir
 [{key, value}] = [key: "value"]
+value
 ```
 
 ```elixir
@@ -274,7 +285,8 @@ Bind `1` in the following keyword list to a variable `one`.
 Enter your solution below.
 
 ```elixir
-[one: 1, two: 2, three: 3, four: 4]
+[{_, one} | _tail] = [one: 1, two: 2, three: 3, four: 4]
+one
 ```
 
 ## Further Reading

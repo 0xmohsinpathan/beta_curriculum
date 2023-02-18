@@ -57,6 +57,12 @@ end
 Implement the `Email` module as documented.
 
 ```elixir
+# input -> string
+#
+# output -> t / f
+```
+
+```elixir
 defmodule Email do
   @moduledoc """
   Documentation for `Email`
@@ -87,8 +93,13 @@ defmodule Email do
 
     iex> Email.valid?("string@string.")
     false
+    
+    iex> Email.valid?("string@string..")
+    false
+
   """
   def valid?(email) do
+    Regex.match?(~r/\w+@\w+\.\w/, email)
   end
 end
 ```

@@ -94,7 +94,7 @@ flowchart
 In the Elixir cell below, Create a list of your favourite foods as strings.
 
 ```elixir
-
+["mango", "apple", "pizza"]
 ```
 
 ## List Operators
@@ -161,13 +161,13 @@ step2 -- [2]
 In the Elixir cell below, add `[1, 2, 3]` and `[4, 5, 6]` together to make `[1, 2, 3, 4, 5, 6].`
 
 ```elixir
-
+[1, 2, 3] ++ [4, 5, 6]
 ```
 
 In the Elixir cell below, remove `[1]` from `[1, 1, 2, 3]` to make `[1, 2, 3]`
 
 ```elixir
-
+[1, 1, 2, 3] -- [1]
 ```
 
 ## Prepending
@@ -197,7 +197,8 @@ list = [2, 3]
 In the Elixir cell below, prepend `"hello"` to the list `["world"]` to make `["hello", "world"]`
 
 ```elixir
-
+list = ["world"]
+["hello" | ["world"]]
 ```
 
 ## Pattern Matching Lists
@@ -211,7 +212,7 @@ We can pattern match on lists to bind elements in the list to variables.
 This poses an issue for lists though who seem to require a match for every element.
 
 ```elixir
-[one] = [1, 2]
+[one, _two] = [1, 2]
 ```
 
 To get around this, you can use the `[head | tail]` syntax for prepending elements to a list.
@@ -219,8 +220,8 @@ To get around this, you can use the `[head | tail]` syntax for prepending elemen
 The **head** is the first element of the list.
 
 ```elixir
-[head | _tail] = [1, 2, 3, 4, 5, 6, 7]
-head
+[h | tai] = [1, 2, 3, 4, 5, 6, 7]
+tai
 ```
 
 The **tail** is rest of the elements in the list.
@@ -277,7 +278,8 @@ Bind `1` in the following list to a variable `a` using pattern matching.
 Enter your solution below.
 
 ```elixir
-[1, 2, 3]
+[a | _tail] = [1, 2, 3]
+a
 ```
 
 Bind `1` in the following list to a variable `a` using pattern matching.
@@ -311,7 +313,8 @@ Bind `1` and `2`, and `3` in the following list to variables `a`, `b`, and `c` u
 Enter your solution below.
 
 ```elixir
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+[a, b, c | _tail] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+[a, b, c]
 ```
 
 ## Further Reading

@@ -57,7 +57,7 @@ FizzBuzz.run(1..15)
 
 Enter your solution below.
 
-<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott\")","title":"FizzBuzz"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott\")","title":"FizzBuzz"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott")
@@ -67,9 +67,7 @@ YouTube.new("https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott")
 defmodule FizzBuzz do
   @doc """
   FizzBuzz.
-
   ## Examples
-
     iex> FizzBuzz.run(1..15)
     [1, 2, "fizz", 4, "buzz", "fizz", 7, 8, "fizz", "buzz", 11, "fizz", 13, 14, "fizzbuzz"]
 
@@ -77,13 +75,40 @@ defmodule FizzBuzz do
     ["buzz", 11, "fizz", 13, 14, "fizzbuzz"]
   """
   def run(range) do
+    Enum.map(range, fn int ->
+      cond do
+        rem(int, 3) == 0 and rem(int, 5) == 0 -> "fizzbuzz"
+        rem(int, 3) == 0 -> "fizz"
+        rem(int, 5) == 0 -> "buzz"
+        true -> int
+      end
+    end)
   end
 end
+
+FizzBuzz.run(1..15)
+```
+
+```elixir
+defmodule FizzBuzz do
+  def play(range) do
+    Enum.map(range, fn int ->
+      cond do
+        rem(int, 3) == 0 and rem(int, 5) == 0 -> "fizzbuzz"
+        rem(int, 3) == 0 -> "fizz"
+        rem(int, 5) == 0 -> "buzz"
+        true -> int
+      end
+    end)
+  end
+end
+
+FizzBuzz.play(1..40)
 ```
 
 ## Mark As Completed
 
-<!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"fizzbuzz_reading\"\n    \"exercises\" -> \"fizzbuzz_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"fizzbuzz_reading\"\n    \"exercises\" -> \"fizzbuzz_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, ""), ".livemd")

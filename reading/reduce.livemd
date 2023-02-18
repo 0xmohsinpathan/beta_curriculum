@@ -41,6 +41,14 @@ If you'd like to learn more about reduce, there's an [excellent video](https://g
 YouTube.new("https://www.youtube.com/watch?v=OQrfedclHfk")
 ```
 
+```elixir
+# writing map using reduce; you can use reduce to build map 
+[23, 34, 38]
+|> Enum.reduce([], fn element, acc ->
+  acc ++ [element]
+end)
+```
+
 ## Input -> Output
 
 As we've seen, other [Enum](https://hexdocs.pm/elixir/Enum.html) functions such as [Enum.map/2](https://hexdocs.pm/elixir/Enum.html#map/2) or [Enum.filter/2](https://hexdocs.pm/elixir/Enum.html#filter/2) take in a collection as input and produce a list as output.

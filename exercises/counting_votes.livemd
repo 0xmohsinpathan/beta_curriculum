@@ -52,7 +52,9 @@ style D2 fill:lightgreen
 style D3 fill:lightgreen
 ```
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+Enum.count([1, 2, 2, 2, 3, 4, 5], fn x -> nil end)
+```
 
 So we would return `3` votes for dogs.
 
@@ -80,6 +82,9 @@ defmodule Votes do
     0
   """
   def count(votes, vote) do
+    Enum.count(votes, fn elements ->
+      elements == vote
+    end)
   end
 end
 ```
@@ -120,6 +125,7 @@ defmodule VoterTally do
     %{dog: 2, cat: 3, bird: 1}
   """
   def tally(votes) do
+    Enum.frequencies(votes)
   end
 end
 ```
