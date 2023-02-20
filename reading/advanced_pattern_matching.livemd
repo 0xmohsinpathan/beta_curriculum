@@ -93,11 +93,11 @@ defmodule PatternParamExample do
     IO.inspect(a, label: "a")
     IO.inspect(b, label: "b")
     IO.inspect(c, label: "c")
-    IO.inspect(param1, label: "c")
+    IO.inspect(param1, label: "param")
   end
 end
 
-PatternParamExample.inspect([1, 2, 3])
+PatternParamExample.inspect([5, 6, 2])
 ```
 
 Sometimes we use this pattern to validate that a particular parameter is the shape of data that we expect. For example, the following confirms the parameter in the function is a `map`.
@@ -107,9 +107,14 @@ defmodule MapsOnly do
   def inspect(%{} = map) do
     IO.inspect(map)
   end
+
+  def inspect([] = list) do
+    IO.inspect(list)
+  end
 end
 
 MapsOnly.inspect(%{})
+MapsOnly.inspect([])
 ```
 
 Any non-map data type would crash the function with a [FunctionClauseError](https://hexdocs.pm/elixir/FunctionClauseError.html).
@@ -140,7 +145,8 @@ We can use the match operator anytime we have a value bound to a parameter or va
 Create a `case` statement that will return the first element in a 2 element tuple, or the first element in 2 element a list.
 
 ```elixir
-
+case {1, 2, 3} do
+end
 ```
 
 Use pattern matching to ensure the `Check.must_have_elements!/1` function returns true when called with a list that has more than one element and otherwise causes a [FunctionClauseError](https://hexdocs.pm/elixir/FunctionClauseError.html).
@@ -174,7 +180,7 @@ defmodule Check do
       iex> Check.must_have_elements!([])
       ** (FunctionClauseError) no function clause matching in Check.must_have_elements!/1
   """
-  def must_have_elements!(list) do
+  def must_have_elements!([_head | _tail] = list) do
     true
   end
 end
@@ -280,6 +286,11 @@ defmodule Greeter do
       "Hello everyone!"
   """
   def hello(names) do
+    case names do
+      [_] -> "Hi #{names}!"
+      [head, tail] -> "Hi #{head}, Hello #{tail}!"
+      _ -> "Hello everyone!"
+    end
   end
 end
 ```
@@ -329,8 +340,12 @@ defmodule Converter do
 
   """
   def to_named_strings(integers) do
+    case integers do
+    end
   end
 end
+
+Converter.to_named_strings(1)
 ```
 
 ### Your Turn

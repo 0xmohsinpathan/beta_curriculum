@@ -66,6 +66,7 @@ In the `Adder` module below, create an `@spec` for integers with the `add/2` fun
 
 ```elixir
 defmodule Adder do
+  @spec add(integer(), integer()) :: integer
   def add(integer1, integer2) do
     integer1 + integer2
   end
