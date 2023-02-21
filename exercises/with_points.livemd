@@ -95,16 +95,20 @@ defmodule Points do
       {:error, :invalid}
   """
   def tally(game) do
-    with %{team1_name: team1, team2_name: team2} <- game,
-         %{round1: %{team1: t1r1, team2: t2r1}} <- game,
-         %{round2: %{team1: t1r2, team2: t2r2}} <- game,
-         %{round3: %{team1: t1r3, team2: t2r3}} <- game do
-      %{}
-      |> Map.put(team1, t1r1 + t1r2 + t1r3)
-      |> Map.put(team2, t2r1 + t2r2 + t2r3)
+    IO.inspect(binding())
+
+    with %{team1_name: name1, team2_name: name2} <- game,
+         %{
+           round1: %{team1: team1_score1, team2: team2_score1},
+           round2: %{team1: team1_score2, team2: team2_score2},
+           round3: %{team1: team1_score3, team2: team2_score3}
+         } <- game do
+      final_score1 = game.round1.team1 + game.round2.team1 + game.round3.team1
+      final_score2 = game.round1.team2 + game.round2.team2 + game.round3.team2
+
+      %{name1 => final_score1, name2 => final_score2}
     else
-      error ->
-        {:error, :invalid}
+      error -> {:error, :invalid}
     end
   end
 end
