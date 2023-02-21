@@ -100,9 +100,9 @@ defmodule Math do
     iex> Math.add(4, 4)
     8
 
-    Math.add([1, 2], [3, 4])
+    iex> Math.add([1, 2], [3, 4])
     [1, 2, 3, 4]
-    Math.add([1, 2, 3], [4, 5, 6])
+    iex> Math.add([1, 2, 3], [4, 5, 6])
     [1, 2, 3, 4, 5, 6]
 
     iex> Math.add("abc", "def")
@@ -122,8 +122,9 @@ defmodule Math do
     iex> Math.add(%{}, %{})
     ** (FunctionClauseError) no function clause matching in Math.add/2
   """
-  def add(value1, value2) do
-  end
+  def add(value1, value2) when is_integer(value1) and is_integer(value2), do: value1 + value2
+  def add(value1, value2) when is_list(value1) and is_list(value2), do: value1 ++ value2
+  def add(value1, value2) when is_binary(value1) and is_binary(value2), do: value1 <> value2
 
   @doc """
   Subtract two integers, strings, or lists.
@@ -161,7 +162,12 @@ defmodule Math do
     iex> Math.subtract(%{}, %{})
     ** (FunctionClauseError) no function clause matching in Math.subtract/2
   """
-  def subtract(value1, value2) do
+  def subtract(value1, value2) when is_integer(value1) and is_integer(value2), do: value1 - value2
+  def subtract(value1, value2) when is_list(value1) and is_list(value2), do: value1 -- value2
+
+  def subtract(value1, value2) when is_binary(value1) and is_binary(value2) do
+    (String.graphemes(value1) -- String.graphemes(value2))
+    |> List.to_string()
   end
 end
 ```

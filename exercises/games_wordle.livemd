@@ -12,45 +12,7 @@ Mix.install([
 ## Navigation
 
 ```elixir
-defmodule Wordle do
-  @alphabet "abcdefghijklmnopqrstuvwxyz"
-  @secret_word_length 5
-  @num_guesses 6
 
-  def start_game() do
-    secret_word = generate_secret_word()
-    game_loop(secret_word, 1)
-  end
-
-  def generate_secret_word() do
-    word_list = ["apple", "banana", "cherry", "orange", "pear"]
-    Enum.random(word_list)
-  end
-
-  def game_loop(secret_word, round) do
-    if round > @num_guesses do
-      IO.puts("You lose! The secret word was #{secret_word}.")
-    else
-      IO.puts("Guess the secret word (#{@secret_word_length} letters):")
-      guess = String.downcase(IO.gets(""))
-
-      if guess == secret_word do
-        IO.puts("You win!")
-      else
-        feedback = calculate_feedback(secret_word, guess)
-        IO.puts("Feedback: #{feedback}")
-        game_loop(secret_word, round + 1)
-      end
-    end
-  end
-
-  def calculate_feedback(secret_word, guess) do
-    matching_letters = Enum.zip(secret_word, guess) |> Enum.count(fn {a, b} -> a == b end)
-    "You got #{matching_letters} letters right."
-  end
-end
-
-Wordle.start_game()
 ```
 
 [Return Home](../start.livemd)<span style="padding: 0 30px"></span>
