@@ -224,6 +224,10 @@ We'll create a `Cat` struct.
 defmodule Cat do
   defstruct [:mood]
 end
+
+defmodule Dog do
+  defstruct [:mood]
+end
 ```
 
 Then a `Cat` implementation for the `Sound` protocol.

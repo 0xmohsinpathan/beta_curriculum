@@ -116,9 +116,9 @@ defprotocol Math do
     iex> Math.add(4, 4)
     8
 
-    Math.add([1, 2], [3, 4])
+    iex> Math.add([1, 2], [3, 4])
     [1, 2, 3, 4]
-    Math.add([1, 2, 3], [4, 5, 6])
+    iex> Math.add([1, 2, 3], [4, 5, 6])
     [1, 2, 3, 4, 5, 6]
 
     iex> Math.add("abc", "def")
@@ -161,6 +161,37 @@ defprotocol Math do
     ** (Protocol.UndefinedError) protocol Math not implemented for 1.0 of type Float
   """
   def subtract(value1, value2)
+end
+
+defimpl Math, for: Integer do
+  def add(value1, value2) do
+    value1 + value2
+  end
+
+  def subtract(value1, value2) do
+    value1 - value2
+  end
+end
+
+defimpl Math, for: List do
+  def add(value1, value2) do
+    value1 ++ value2
+  end
+
+  def subtract(value1, value2) do
+    value1 -- value2
+  end
+end
+
+defimpl Math, for: BitString do
+  def add(value1, value2) do
+    value1 <> value2
+  end
+
+  def subtract(value1, value2) do
+    (String.graphemes(value1) -- String.graphemes(value2))
+    |> List.to_string()
+  end
 end
 ```
 
