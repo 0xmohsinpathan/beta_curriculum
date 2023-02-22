@@ -28,7 +28,9 @@ In Tic-tac-toe, players take turns placing either an `X` or an `O` onto a 3 by 3
 
 ![](images/tic_tac_toe.png)
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+abs(0 - 1) == 3 - 1
+```
 
 We can represent a grid like this as a list of lists.
 

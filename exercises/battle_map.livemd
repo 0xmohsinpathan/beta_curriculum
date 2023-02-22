@@ -130,6 +130,18 @@ defprotocol Character do
   def can_attack?(character, origin, target)
 end
 
+defimpl Character, for: Barbarian do
+  def can_attack?(_character, {x1, y1}, {x2, y2}) do
+    abs(x2 - x1) <= 2 or abs(y2 - y1) <= 2
+  end
+end
+
+defimpl Character, for: Wizard do
+  def can_attack?(_character, {x1, y1}, {x2, y2}) do
+    x1 == x2 || y1 == y2 || abs(x2 - x1) == abs(y2 - y1)
+  end
+end
+
 ExUnit.start(auto_run: false)
 
 defmodule CharacterTests do
