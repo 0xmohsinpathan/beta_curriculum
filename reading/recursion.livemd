@@ -155,7 +155,7 @@ You may need to click the **Connect** button to reconnect the Elixir runtime.
 #   end
 # end
 
-# Body.recursion([1,2,3])
+# Body.recursion([1,2])
 ```
 
 Make sure you comment out the code above, otherwise Livebook will keep disconnecting.

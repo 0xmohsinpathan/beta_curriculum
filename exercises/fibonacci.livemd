@@ -55,6 +55,10 @@ end
 Implement the `Fibonacci` module as documented.
 
 ```elixir
+1 - 1 + (1 - 2)
+```
+
+```elixir
 defmodule Fibonacci do
   @moduledoc """
   Documentation for the `Fibonacci` module.
@@ -89,9 +93,19 @@ defmodule Fibonacci do
     iex> Fibonacci.of(20)
     6765
   """
+  def of(0), do: 0
+
+  def of(1), do: 1
+
   def of(n) do
+    #  IO.inspect(n, lable: "n")
+    of(n - 1) + of(n - 2)
   end
 end
+```
+
+```elixir
+Fibonacci.of(7)
 ```
 
 ## Mark As Completed

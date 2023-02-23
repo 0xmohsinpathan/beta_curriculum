@@ -210,7 +210,19 @@ true
 Implement your custom character below.
 
 ```elixir
+defmodule Archer do
+  defstruct []
+end
+```
 
+```elixir
+defimpl Character, for: Archer do
+  def can_attack?(_character, {x1, y1}, {x2, y2}) do
+    abs(x2 - x1) == 3 or abs(y2 - y1) == 3
+  end
+end
+
+Character.can_attack?(%Archer{}, {4, 4}, {7, 7})
 ```
 
 ## Mark As Completed

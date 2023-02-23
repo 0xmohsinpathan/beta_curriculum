@@ -85,7 +85,7 @@ in Elixir are unbounded, meaning they have no maximum size.
 Contrast that with a language like JavaScript which has a maximum safe integer size of `9007199254740991`.
 Elixir makes that look tiny!
 
-<!-- livebook:{"attrs":{"code":"biggest_integer = 9007199254740991","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":true},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"code":"biggest_integer = 9007199254740991","source":"Kino.Markdown.new(~s(\ninteger: #{biggest_integer}\\n\ndigits: #{biggest_integer |> Integer.digits() |> Enum.count()}\n))","title":true},"chunks":null,"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
 
 ```elixir
 biggest_integer = 9_007_199_254_740_991
@@ -100,7 +100,7 @@ grows! Move on to the next section when you're satisfied that integers are truly
 
 To avoid distorting your screen we use mathematical notation $10^{n}$ after 80 digits.
 
-<!-- livebook:{"attrs":{"source":"SmartAnimation.new(1..100_000_000, fn i ->\n  max = 10 ** 80\n  integer_display = (10 ** i < max && 10 ** i) || \"$10^{#{i}}$\"\n\n  Kino.Markdown.new(\"\"\"\n  integer: #{integer_display}\\n\n  digits: #{Integer.digits(10 ** i) |> Enum.count()}\n  \"\"\")\nend)","title":"Animation Source: (Hidden: instructors Only)"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"SmartAnimation.new(1..100_000_000, fn i ->\n  max = 10 ** 80\n  integer_display = (10 ** i < max && 10 ** i) || \"$10^{#{i}}$\"\n\n  Kino.Markdown.new(\"\"\"\n  integer: #{integer_display}\\n\n  digits: #{Integer.digits(10 ** i) |> Enum.count()}\n  \"\"\")\nend)","title":"Animation Source: (Hidden: instructors Only)"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 SmartAnimation.new(1..100_000_000, fn i ->
@@ -154,7 +154,7 @@ For example, you might want to represent a progress bar as a percentage.
 In the Elixir cell below, try changing the float `percentage` to any float between `0.0` and `100.0`
 and see how the loading bar changes! Replace `50.0` with your answer and reevaluate the cell.
 
-<!-- livebook:{"attrs":{"code":"percentage = 1.22","source":"Kino.Markdown.new(~s(\n  <div style=\\\"height: 20px; width: 100%; background-color: grey\\\">\n  <div style=\\\"height: 20px; width: #{percentage}%; background-color: green; color: white;\\\">#{percentage}%</div>\n  </div>\n))","title":true},"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"code":"percentage = 1.22","source":"Kino.Markdown.new(~s(\n  <div style=\\\"height: 20px; width: 100%; background-color: grey\\\">\n  <div style=\\\"height: 20px; width: #{percentage}%; background-color: green; color: white;\\\">#{percentage}%</div>\n  </div>\n))","title":true},"chunks":null,"kind":"Elixir.Visual","livebook_object":"smart_cell"} -->
 
 ```elixir
 percentage = 1.22
@@ -220,7 +220,7 @@ floats may result in floating-point errors.
 ## Addition
 
 ```elixir
-
+rem(5, 001)
 ```
 
 You can create entire equations by writing operators one after the other. So long as there is a
@@ -397,7 +397,7 @@ That means that `10 ** 2` is 10 to the power of 2. Mathematically that's the sam
 `10 ** 3` means `10 * 10 * 10`. If you would like a more in-depth explanation of exponents, there's
 a video by Khan Academy.
 
-<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=XZRQhkii0h0\")","title":"Introduction To Exponents"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=XZRQhkii0h0\")","title":"Introduction To Exponents"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=XZRQhkii0h0")
@@ -509,7 +509,7 @@ That's because `2` goes into `5` twice and leaves a remainder of `1`.
 
 If you're not familiar with remainders, here's a video by Khan Academy.
 
-<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=P1qyjdh_sIw\")\n","title":"Introduction to Remainders"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"YouTube.new(\"https://www.youtube.com/watch?v=P1qyjdh_sIw\")\n","title":"Introduction to Remainders"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 YouTube.new("https://www.youtube.com/watch?v=P1qyjdh_sIw")
@@ -538,7 +538,7 @@ a limit. You don't need to know how to do this yet, but it will be helpful in fu
 Here we have an animation to show the remainder of a growing number divided by 10 to help you
 visualize this effect.
 
-<!-- livebook:{"attrs":{"source":"SmartAnimation.new(1..100_000_000, fn i ->\n  Kino.Markdown.new(\"\"\"\n  ```elixir\n  rem(#{i}, 10) = #{rem(i, 10)}\n  ```\n  \"\"\")\nend)","title":"Animation Source (Hidden: instructors Only)"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"SmartAnimation.new(1..100_000_000, fn i ->\n  Kino.Markdown.new(\"\"\"\n  ```elixir\n  rem(#{i}, 10) = #{rem(i, 10)}\n  ```\n  \"\"\")\nend)","title":"Animation Source (Hidden: instructors Only)"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ````elixir
 SmartAnimation.new(1..100_000_000, fn i ->
@@ -604,7 +604,7 @@ Consider the following resource(s) to deepen your understanding of the topic.
 
 ## Mark As Completed
 
-<!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"arithmetic_reading\"\n    \"exercises\" -> \"arithmetic_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"arithmetic_reading\"\n    \"exercises\" -> \"arithmetic_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, ""), ".livemd")

@@ -70,10 +70,10 @@ In the Elixir cell below, create a comment `# hello world`
 In the Elixir cell below, comment all of the code out using the **Toggle lines comment** keyboard shortcut.
 
 ```elixir
-1 + 1
-2 + 3
-3 + 1 + 2
-123 + 12 + 256
+# 1 + 1
+# 2 + 3
+# 3 + 1 + 2
+# 123 + 12 + 256
 ```
 
 ## Further Reading
