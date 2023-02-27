@@ -17,7 +17,7 @@
   "reduce_reading": false,
   "code_editors_reading": true,
   "exdoc_reading": false,
-  "process_drills_exercise": false,
+  "process_drills_exercise": true,
   "saferange_exercise": false,
   "time_converting_exercise": true,
   "pokemon_server_exercise": false,
