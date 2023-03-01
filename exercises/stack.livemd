@@ -57,41 +57,128 @@ Copy the code below into your `Stack` module.
 ```elixir
 defmodule Stack do
   use GenServer
+  # Client
 
-  def start_link(_opts) do
+  def start_link(opts \\ []) do
+    state = opts[:state] || []
+    GenServer.start_link(__MODULE__, state, opts)
   end
 
   def push(pid, element) do
+    GenServer.cast(pid, {:push, element})
   end
 
   def pop(pid) do
+    GenServer.call(pid, :pop)
+  end
+
+  def view(pid) do
+    GenServer.call(pid, :view)
+  end
+
+  # Server
+
+  @impl true
+  def init(state) do
+    {:ok, state}
+  end
+
+  @impl true
+  def handle_cast({:push, element}, state) do
+    updated_list = [element | state]
+    {:noreply, updated_list}
+  end
+
+  @impl true
+  def handle_call(:pop, _from, state) do
+    case state do
+      [] -> {:reply, nil, state}
+      _ -> {:reply, hd(state), tl(state)}
+    end
+  end
+
+  @impl true
+  def handle_call(:view, _from, state) do
+    {:reply, state, state}
   end
 end
+
+{:ok, pid} = Stack.start_link([])
+```
+
+```elixir
+:sys.get_state(pid)
+Stack.pop(pid)
+# [] == :sys.get_state(pid)
 ```
 
 Then copy the following code into the associated test file for the `Stack` module.
 
 ```elixir
+ExUnit.start(auto_run: false)
+
 defmodule StackTest do
   use ExUnit.Case
 
   describe "start_link/1" do
-    test "with no configuration"
-    test "with a default state"
+    test "with no configuration" do
+      {:ok, pid} = Stack.start_link([])
+      assert Stack.view(pid) == []
+    end
+
+    test "with a default state" do
+      {:ok, pid} = Stack.start_link(state: ["default", "state"])
+      assert Stack.view(pid) == ["default", "state"]
+    end
   end
 
   describe "push/2" do
-    test "an element onto an empty stack"
-    test "an element onto a stack with one element"
-    test "an element onto a stack with multiple elements"
+    test "an element onto an empty stack" do
+      {:ok, pid} = Stack.start_link([])
+      Stack.push(pid, :one)
+      assert Stack.view(pid) == [:one]
+    end
+
+    test "an element onto a stack with one element" do
+      {:ok, pid} = Stack.start_link([])
+      Stack.push(pid, :one)
+      Stack.push(pid, :two)
+      assert Stack.view(pid) == [:two, :one]
+    end
+
+    test "an element onto a stack with multiple elements" do
+      {:ok, pid} = Stack.start_link([])
+      Stack.push(pid, :one)
+      Stack.push(pid, :two)
+      Stack.push(pid, :three)
+      assert Stack.view(pid) == [:three, :two, :one]
+    end
   end
 
   describe "pop/1" do
-    test "an empty stack"
-    test "a stack with one element"
-    test "a stack with multiple elements"
+    test "an empty stack" do
+      {:ok, pid} = Stack.start_link([])
+
+      assert Stack.pop(pid) == nil
+    end
+
+    test "a stack with one element" do
+      {:ok, pid} = Stack.start_link([])
+      Stack.push(pid, :one)
+      assert Stack.pop(pid) == :one
+    end
+
+    test "a stack with multiple elements" do
+      {:ok, pid} = Stack.start_link([])
+      Stack.push(pid, :one)
+      Stack.push(pid, :two)
+      Stack.push(pid, :three)
+      assert Stack.pop(pid) == :three
+    end
   end
 end
+
+ExUnit.run()
 ```
 
 ## Bonus: GitHub Repository

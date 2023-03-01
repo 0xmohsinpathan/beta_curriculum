@@ -72,6 +72,11 @@ defmodule Mailbox do
       iex> send(counter_process, {:mail, "Hello!"})
   """
   def loop(state \\ []) do
+    IO.inspect(state)
+
+    receive do
+      {:mail, payload} -> loop([payload | []])
+    end
   end
 end
 ```
