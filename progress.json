@@ -69,7 +69,7 @@
   "big_o_notation_reading": false,
   "battle_map_exercise": true,
   "group_project_blog_presentation_exercise": false,
-  "timer_exercise": false,
+  "timer_exercise": true,
   "games_benchmarking_exercise": false,
   "guessing_games_exercise": true,
   "sign_up_form_exercise": false,
