@@ -72,7 +72,7 @@
   "timer_exercise": true,
   "games_benchmarking_exercise": false,
   "guessing_games_exercise": true,
-  "sign_up_form_exercise": false,
+  "sign_up_form_exercise": true,
   "enum_reading": false,
   "caesar_cypher_exercise": false,
   "booleans_reading": true,
