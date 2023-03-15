@@ -109,7 +109,10 @@ iex> Games.Wordle.feedback("aaabb", "xaaaa")
 
 Test and implement a `Games.Wordle` module in your [Games](./games_setup.livemd) project.
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+# answer = "aaaab", guess = "aaaaa" 
+[g, g, g, g, gr]
+```
 
 ### Play
 

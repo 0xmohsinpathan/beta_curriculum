@@ -126,7 +126,8 @@ defmodule TrafficLightServer do
   @doc """
   Start a TrafficLightServer linked to the current caller process.
   """
-  def start_link(opts) do
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, :green)
   end
 
   @doc """
@@ -134,14 +135,48 @@ defmodule TrafficLightServer do
   :green -> :yellow -> :red
   """
   def transition(pid) do
+    GenServer.call(pid, :transition)
   end
 
   @doc """
   Get the `TrafficLightServer`'s current state.
   """
   def current_light(pid) do
+    GenServer.call(pid, :current_light)
+  end
+
+  def init(_opts) do
+    {:ok, :green}
+  end
+
+  def handle_call(:transition, _from, state) do
+    new_light_color =
+      case state do
+        :green -> :yellow
+        :yellow -> :red
+        :red -> :green
+      end
+
+    {:reply, new_light_color, new_light_color}
+  end
+
+  def handle_call(:current_light, _from, state) do
+    {:reply, state, state}
   end
 end
+```
+
+```elixir
+{:ok, pid} = TrafficLightServer.start_link(1)
+:sys.get_state(pid)
+```
+
+```elixir
+TrafficLightServer.transition(pid)
+```
+
+```elixir
+TrafficLightServer.current_light(pid)
 ```
 
 ## Bonus: TrafficGrid
@@ -317,7 +352,8 @@ defmodule TrafficGridServer do
       TrafficGridServer.start_link([])
       {:ok, pid}
   """
-  def start_link(_opts) do
+  def start_link(_state) do
+    GenServer.start_link(__MODULE__, [])
   end
 
   @doc """
@@ -329,6 +365,7 @@ defmodule TrafficGridServer do
       [:yellow, :green, :green, :green, :green]
   """
   def transition(grid_pid) do
+    GenServer.call(grid_pid, :transitions)
   end
 
   @doc """
@@ -340,11 +377,182 @@ defmodule TrafficGridServer do
       [:green, :green, :green, :green, :green]
   """
   def current_lights(grid_pid) do
+    GenServer.call(grid_pid, :current_lights)
+  end
+
+  def init(_state) do
+    lights_pid =
+      Enum.map(1..5, fn el ->
+        {:ok, pid} = TrafficLightServer.start_link(el)
+        pid
+      end)
+
+    {:ok, %{lights: lights_pid, index: 0}}
+  end
+
+  def handle_call(:current_lights, _from, state) do
+    lights = trafficLightServer_current_light(state)
+    {:reply, lights, state}
+  end
+
+  def handle_call(:transitions, _from, state) do
+    light = Enum.at(state.lights, state.index)
+    TrafficLightServer.transition(light)
+
+    lights = trafficLightServer_current_light(state)
+
+    updated_index =
+      case state.index do
+        4 -> 0
+        index -> index + 1
+      end
+
+    {:reply, lights, %{state | index: updated_index}}
+  end
+
+  defp trafficLightServer_current_light(state) do
+    Enum.map(state.lights, &TrafficLightServer.current_light/1)
   end
 end
 ```
 
+```elixir
+{:ok, pid} = TrafficGridServer.start_link([])
+:sys.get_state(pid)
+```
+
+```elixir
+TrafficGridServer.current_lights(pid)
+```
+
+```elixir
+TrafficGridServer.transition(pid)
+```
+
 ## Mark As Completed
+
+```elixir
+defmodule BirthDate do
+  def age_or_deceased(birthdate, is_alive) do
+    if is_alive do
+      # Calculate the person's age based on their birthdate and the current date
+      today = Date.utc_today()
+
+      age = Date.diff(today, birthdate) |> div(365)
+
+      "Age: #{age}"
+    else
+      "Deceased"
+    end
+  end
+end
+
+BirthDate.age_or_deceased(~D[2003-01-01], true)
+```
+
+```elixir
+defimpl Enumerable do
+end
+```
+
+```elixir
+defmodule WordleServer do
+  use GenServer
+
+  def start_link(_state) do
+    GenServer.start_link(__MODULE__, %{
+      secret_word: random_word(),
+      guessed_letters: [],
+      attempts_left: 6
+    })
+  end
+
+  def guess_letter(guess_pid, letter) do
+    GenServer.call(guess_pid, {:guess_letter, letter})
+  end
+
+  def get_state(state_pid) do
+    GenServer.call(state_pid, :get_state)
+  end
+
+  def init(state) do
+    {:ok, state}
+  end
+
+  def handle_call({:guess_letter, letter}, _from, state) do
+    new_state = Map.update(state, :guessed_letters, letter, fn letters -> [letter | letters] end)
+    update_attempts(new_state) |> dbg()
+    {:reply, new_state, new_state}
+  end
+
+  def handle_call(:get_state, _from, state) do
+    {:reply, state, state}
+  end
+
+  defp random_word() do
+    ["apple", "banana", "cherry", "durian", "elderberry"]
+    |> Enum.random()
+  end
+
+  defp update_attempts(state) do
+    secret_word = state[:secret_word] |> dbg()
+    guessed_letters = state[:guessed_letters] |> dbg()
+    attempts_left = state[:attempts_left] |> dbg()
+
+    new_attempts_left =
+      if is_guess_correct(secret_word, guessed_letters) do
+        attempts_left
+      else
+        attempts_left - 1
+      end
+
+    Map.put(state, :attempts_left, new_attempts_left)
+  end
+
+  defp is_guess_correct(secret_word, guessed_letters) do
+    guessed_letters
+    |> Enum.all?(fn letter -> secret_word |> String.contains?(letter) end)
+  end
+end
+```
+
+```elixir
+{:ok, pid} = WordleServer.start_link([])
+:sys.get_state(pid)
+WordleServer.guess_letter(pid, "banana")
+WordleServer.get_state(pid)
+```
+
+```elixir
+{:ok, pid} = WordleServer.start_link([])
+IO.puts("Welcome to Wordle!")
+IO.puts("You have 6 attempts to guess the secret word.")
+
+# defp loop(pid) do
+#   IO.puts("Enter a letter:")
+#   letter = IO.gets(get_guess_word) |> String.trim() |> IO.inspect()
+
+#   #   case GenServer.call(pid, {:guess_letter, letter}) do
+#   #     %{
+#   #       secret_word: secret_word,
+#   #       guessed_letters: guessed_letters,
+#   #       attempts_left: attempts_left
+#   #     } ->
+#   #       IO.puts("Guessed letters: #{guessed_letters |> Enum.join(", ")}")
+#   #       IO.puts("Attempts left: #{attempts_left}")
+
+#   #       if is_game_over(secret_word, guessed_letters, attempts_left) do
+#   #         IO.puts("Game over! The secret word was #{secret_word}.")
+#   #       else
+#   #         loop(pid)
+#   #       end
+#   #   end
+# end
+
+# defp is_game_over(secret_word, guessed_letters, attempts_left) do
+#   is_guess_correct(secret_word, guessed_letters) || attempts_left == 0
+# end
+```
 
 <!-- livebook:{"attrs":{"source":"file_name = Path.basename(Regex.replace(~r/#.+/, __ENV__.file, \"\"), \".livemd\")\n\nsave_name =\n  case Path.basename(__DIR__) do\n    \"reading\" -> \"traffic_light_server_reading\"\n    \"exercises\" -> \"traffic_light_server_exercise\"\n  end\n\nprogress_path = __DIR__ <> \"/../progress.json\"\nexisting_progress = File.read!(progress_path) |> Jason.decode!()\n\ndefault = Map.get(existing_progress, save_name, false)\n\nform =\n  Kino.Control.form(\n    [\n      completed: input = Kino.Input.checkbox(\"Mark As Completed\", default: default)\n    ],\n    report_changes: true\n  )\n\nTask.async(fn ->\n  for %{data: %{completed: completed}} <- Kino.Control.stream(form) do\n    File.write!(\n      progress_path,\n      Jason.encode!(Map.put(existing_progress, save_name, completed), pretty: true)\n    )\n  end\nend)\n\nform","title":"Track Your Progress"},"chunks":null,"kind":"Elixir.HiddenCell","livebook_object":"smart_cell"} -->
 

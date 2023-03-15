@@ -65,6 +65,10 @@ Alternatively, you can use the static path, but it's generally recommended to us
 <%= link "Home", to: "/home" %>
 ```
 
+```elixir
+
+```
+
 ## Counter
 
 Previously in the [Phoenix 1.6](../reading/phoenix_1.6.livemd) reading material you walked through creating a counter application.

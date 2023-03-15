@@ -186,13 +186,13 @@ APIs commonly return a JSON response. For example, here's the JSON response in t
 ```elixir
 {:ok, request} = HTTPoison.get("https://v2.jokeapi.dev/joke/Any?safe-mode&format=json")
 
-request.body
+request
 ```
 
 When it's printed as a string, it has pretty formatting.
 
 ```elixir
-IO.puts(request.body)
+
 ```
 
 However, as a string, it's a difficult structure to work with if we want to access specific keys and values. There is no internal representation of JSON in Elixir, so to make it more convenient to work with, we need to **decode** it in to a key-value data structure such as a map.
@@ -236,6 +236,7 @@ Use [Jason.decode!/2](https://hexdocs.pm/jason/Jason.html#encode!/2) to decode t
 
 ```elixir
 json = "{\"hello\"\: \"world\"}"
+Jason.decode!(json)
 ```
 
 ## Poison
@@ -323,7 +324,7 @@ api_key = ""
 Once you are sure the above works correctly, use [Poison.decode/2](https://hexdocs.pm/poison/Poison.html#decode/2) to decode the `response` into an Elixir map.
 
 ```elixir
-response
+Poison.decode(response)
 ```
 
 ## Mark As Completed

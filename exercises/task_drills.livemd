@@ -25,19 +25,35 @@ This set of drills is for [Tasks](../reading/task.livemd). Follow the instructio
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.await/2](https://hexdocs.pm/elixir/Task.html#await/2) to spawn a task process that returns any response.
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  task = Task.async(fn -> "respose" end)
 
+  Task.await(task)
+end)
 ```
 
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.await/2](https://hexdocs.pm/elixir/Task.html#await/2) to spawn a task process that sleeps for six seconds. It should cause a timeout error.
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  task =
+    Task.async(fn ->
+      IO.puts("start")
+      Process.sleep(6000)
+      IO.puts("finish")
+      "response"
+    end)
 
+  Task.await(task, 7000)
+end)
 ```
 
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.await/2](https://hexdocs.pm/elixir/Task.html#await/2) to spawn a task process that sleeps for six seconds. Provide a timeout value to [Task.await/2](https://hexdocs.pm/elixir/Task.html#await/2) so that it properly awaits the response.
 
 ```elixir
+tast = Task.async(fn -> Process.sleep(6000) end)
 
+Task.await(tast, 6001)
 ```
 
 ## Task.yield/2
@@ -49,9 +65,25 @@ Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.yield/
 ### Slow Operation
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  nil
+end)
+```
+
+```elixir
 # 1000 operations
-{time, _result} = :timer.tc(fn -> Enum.map(1..10, fn int -> Process.sleep(1000) end) end)
-time
+# Kino.Process.render_seq_trace(fn ->
+{time, _result} =
+  :timer.tc(fn ->
+    Enum.map(1..10, fn int ->
+      IO.puts("starting task #{int}")
+      pid = Process.sleep(1000)
+      IO.inspect(pid)
+    end)
+  end)
+
+time / 1000 / 1000
+# end)
 ```
 
 ```elixir
@@ -70,8 +102,8 @@ time
     Task.await_many(tasks)
   end)
 
-10_009_225
-1_001_494
+# 10_009_225
+# 1_001_494
 ```
 
 ### Fast Operation
@@ -83,6 +115,7 @@ time
 ```
 
 ```elixir
+# Kino.Process.render_seq_trace(fn ->
 {time, _result} =
   :timer.tc(fn ->
     # 1000 tasks
@@ -90,24 +123,51 @@ time
     tasks = Enum.map(1..10, fn int -> Task.async(fn -> int * 2 end) end)
     Task.await_many(tasks)
   end)
+
+# end)
 ```
 
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.yield/2](https://hexdocs.pm/elixir/Task.html#yield/2) to spawn a task process that sleeps for six seconds and returns any response. Notice that the yield is `nil`.
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  task =
+    Task.async(fn ->
+      Process.sleep(6000)
+      "response"
+    end)
 
+  Task.yield(task)
+end)
 ```
 
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.yield/2](https://hexdocs.pm/elixir/Task.html#yield/2) to spawn a task process that sleeps for six seconds and returns any response. Provide a timeout value to [Task.yield/2](https://hexdocs.pm/elixir/Task.html#yield/2) so that it properly returns the response.
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  task =
+    Task.async(fn ->
+      Process.sleep(6000)
+      "response"
+    end)
 
+  Task.yield(task, 6001)
+end)
 ```
 
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1), [Task.yield/2](https://hexdocs.pm/elixir/Task.html#yield/2), and [Task.shutdown/2](https://hexdocs.pm/elixir/Task.html#shutdown/2) to spawn a task process that sleeps for six seconds. Shutdown the task process if it does not yield any value.
 
 ```elixir
+Kino.Process.render_seq_trace(fn ->
+  task =
+    Task.async(fn ->
+      Process.sleep(6000)
+      "response"
+    end)
 
+  Task.yield(task)
+  Task.shutdown(task, 10000)
+end)
 ```
 
 ## Task.await_many/2
@@ -115,7 +175,15 @@ Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1), [Task.yield/2](
 Use [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1) and [Task.await_many/2](https://hexdocs.pm/elixir/Task.html#await_many/2) to spawn two task processes that both return a random number from `1..10`.
 
 ```elixir
+task = Enum.random(1..10)
 
+pid =
+  Task.async(fn ->
+    IO.puts("strat task #{task}")
+    task
+  end)
+
+Task.await(pid)
 ```
 
 Use [Enum.map/2](https://hexdocs.pm/elixir/Enum.html#map/2), [Task.async/1](https://hexdocs.pm/elixir/Task.html#async/1), and [Task.await_many/2](https://hexdocs.pm/elixir/Task.html#await_many/2) to spawn one hundred task processes that all return a random integer from `1..100`.

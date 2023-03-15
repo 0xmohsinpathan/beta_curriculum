@@ -51,7 +51,7 @@ We can use [Task.start/1](https://hexdocs.pm/elixir/Task.html#start/1) to create
 {:ok, task_pid} = Task.start(fn -> IO.puts("task ran!") end)
 
 IO.puts("Parent keeps running")
-Process.sleep(100)
+Process.sleep(10000)
 Process.alive?(task_pid) || IO.puts("task is dead")
 ```
 
@@ -171,7 +171,7 @@ execution and parallel execution.
 You may consider using [Process.sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1) to simulate an expensive computation.
 
 ```elixir
-
+computation1 = fn -> Process.sleep(2000) end
 ```
 
 ## Awaiting Many Tasks
@@ -242,7 +242,9 @@ In the Elixir cell below, spawn a task which takes one second to complete.
 `await/2` the task and alter the timeout value to be one second. Awaiting the task should crash.
 
 ```elixir
+task = Task.async(fn -> Process.sleep(4000) end)
 
+Task.await(task, 1000)
 ```
 
 ## Further Reading
